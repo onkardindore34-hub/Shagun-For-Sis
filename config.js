@@ -26,7 +26,7 @@ const CONFIG = {
   // ---- 3. SHARE LINK --------------------------------------------
   // Update this AFTER you deploy (GitHub Pages / Vercel / Netlify
   // will give you the final URL). Used by the "Share" button.
-  siteUrl: "https://yourusername.github.io/shagun-for-sis/",
+  siteUrl: "https://onkardindore34-hub.github.io/Shagun-For-Sis/",
 
   // Message that goes along with the WhatsApp share link.
   shareMessage: "I made something just for you 💛 Open this:",

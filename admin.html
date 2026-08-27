@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Rakhi Quiz Settings</title>
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- ============ LOGIN GATE ============ -->
+<main id="admin-login" class="admin-screen">
+  <div class="admin-card admin-login-card">
+    <div class="eyebrow">admin dashboard</div>
+    <h1 class="admin-h1">Enter password</h1>
+    <p class="sub">This is the same password set as <code>adminPassword</code> in config.js.</p>
+    <input id="login-password" type="password" class="admin-input" placeholder="Password" autocomplete="current-password" />
+    <p id="login-error" class="admin-error" hidden>That password doesn't match. Try again.</p>
+    <button id="btn-login" class="btn btn-primary">Log in</button>
+  </div>
+</main>
+
+<!-- ============ DASHBOARD (hidden until logged in) ============ -->
+<main id="admin-dashboard" class="admin-screen" hidden>
+
+  <div class="admin-topbar">
+    <div>
+      <div class="eyebrow">admin dashboard</div>
+      <h1 class="admin-h1">Rakhi Quiz Settings</h1>
+    </div>
+    <button id="btn-logout" class="btn btn-ghost admin-small-btn">Log out</button>
+  </div>
+
+  <p class="admin-help">
+    Changes you make here are saved instantly in <strong>this browser only</strong> —
+    great for previewing. To make a change visible to everyone (including your
+    sister's phone), scroll down and use <strong>Download config.js</strong>,
+    then replace the file in your project and re-deploy the site.
+  </p>
+
+  <!-- ---------- GLOBAL SETTINGS ---------- -->
+  <section class="admin-card">
+    <h2 class="admin-h2">Global settings</h2>
+
+    <label class="admin-label">Admin password</label>
+    <input id="field-admin-password" type="text" class="admin-input" />
+
+    <div class="admin-toggle-row">
+      <label class="admin-label" for="field-ngo-enabled">Show a "donate instead" option on the final screen</label>
+      <input id="field-ngo-enabled" type="checkbox" />
+    </div>
+
+    <label class="admin-label">NGO / cause name</label>
+    <input id="field-ngo-name" type="text" class="admin-input" placeholder="e.g. GiveIndia" />
+
+    <label class="admin-label">Message shown above the donate button</label>
+    <textarea id="field-ngo-message" class="admin-input admin-textarea" rows="2"></textarea>
+
+    <label class="admin-label">NGO link (URL)</label>
+    <input id="field-ngo-url" type="url" class="admin-input" placeholder="https://www.giveindia.org/" />
+
+    <label class="admin-label">Button text</label>
+    <input id="field-ngo-button" type="text" class="admin-input" placeholder="Donate instead 🤝" />
+
+    <button id="btn-save-global" class="btn btn-primary admin-small-btn">Save global settings</button>
+    <span id="save-global-confirm" class="admin-confirm" hidden>Saved ✓</span>
+  </section>
+
+  <!-- ---------- PROFILE PICKER ---------- -->
+  <section class="admin-card">
+    <h2 class="admin-h2">Who are you editing?</h2>
+    <p class="admin-help">
+      Each profile is one brother's page — his own name, questions, UPI ID,
+      and WhatsApp number. If you're the only one using this site, just use
+      "default".
+    </p>
+    <div class="admin-row">
+      <select id="profile-select" class="admin-input"></select>
+      <button id="btn-new-profile" class="btn btn-outline admin-small-btn">+ New profile</button>
+      <button id="btn-delete-profile" class="btn btn-ghost admin-small-btn admin-danger">Delete this profile</button>
+    </div>
+    <p class="admin-help" id="profile-link-help"></p>
+  </section>
+
+  <!-- ---------- PROFILE DETAILS ---------- -->
+  <section class="admin-card" id="profile-editor">
+    <h2 class="admin-h2">Profile details</h2>
+
+    <label class="admin-label">Recipient's name (shown in the greeting)</label>
+    <input id="field-recipient-name" type="text" class="admin-input" placeholder="Sis" />
+
+    <label class="admin-label">Coupon message (shown above the Claim button)</label>
+    <textarea id="field-reveal-message" class="admin-input admin-textarea" rows="2"></textarea>
+
+    <div class="admin-grid-2">
+      <div>
+        <label class="admin-label">Your UPI ID</label>
+        <input id="field-upi-id" type="text" class="admin-input" placeholder="yourname@oksbi" />
+      </div>
+      <div>
+        <label class="admin-label">Your name (shown in payment app)</label>
+        <input id="field-payee-name" type="text" class="admin-input" placeholder="Your Name" />
+      </div>
+    </div>
+
+    <label class="admin-label">Shagun amount (₹)</label>
+    <input id="field-amount" type="number" min="0" class="admin-input" placeholder="500" />
+
+    <label class="admin-label">Your WhatsApp number (for the completion alert)</label>
+    <input id="field-whatsapp" type="text" class="admin-input" placeholder="919999999999 (country code + number, digits only)" />
+
+    <label class="admin-label">Completion alert message ( {{name}} becomes the recipient's name )</label>
+    <textarea id="field-notify-message" class="admin-input admin-textarea" rows="2"></textarea>
+
+    <label class="admin-label">Live site URL (used by the Share button)</label>
+    <input id="field-site-url" type="url" class="admin-input" placeholder="https://yourusername.github.io/shagun-for-sis/" />
+
+    <label class="admin-label">Share message</label>
+    <input id="field-share-message" type="text" class="admin-input" />
+
+    <button id="btn-save-profile" class="btn btn-primary admin-small-btn">Save profile</button>
+    <a id="btn-preview-profile" class="btn btn-outline admin-small-btn" href="#" target="_blank" rel="noopener">Preview this profile</a>
+    <span id="save-profile-confirm" class="admin-confirm" hidden>Saved ✓</span>
+  </section>
+
+  <!-- ---------- QUESTIONS EDITOR ---------- -->
+  <section class="admin-card">
+    <h2 class="admin-h2">Quiz questions</h2>
+    <p class="admin-help">Each question needs at least 2 options. Reactions are optional — leave blank to use a friendly default reaction.</p>
+    <div id="questions-list"></div>
+    <button id="btn-add-question" class="btn btn-outline admin-small-btn">+ Add question</button>
+  </section>
+
+  <!-- ---------- EXPORT ---------- -->
+  <section class="admin-card">
+    <h2 class="admin-h2">Publish your changes</h2>
+    <p class="admin-help">
+      This downloads a complete, ready-to-use <code>config.js</code> file with
+      everything saved above (all profiles + global settings). Replace the
+      old <code>config.js</code> in your project with this one, then
+      re-deploy (push to GitHub, or re-upload to Netlify/Vercel) — that's the
+      one step needed for your sister (or other brothers) to see the update.
+    </p>
+    <button id="btn-export" class="btn btn-primary">⬇ Download config.js</button>
+  </section>
+
+</main>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+/* ==========================================================
+   ADMIN DASHBOARD STYLES
+   Builds on top of style.css's color tokens.
+   ========================================================== */
+
+.admin-body{
+  align-items: flex-start;
+}
+
+.admin-screen{
+  position:relative; z-index:1;
+  min-height:100vh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding: 32px 20px 80px;
+}
+
+.admin-login-card{
+  max-width: 380px;
+  margin-top: 10vh;
+  text-align:center;
+}
+
+.admin-card{
+  width:100%;
+  max-width: 640px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-lg);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-soft);
+  text-align:left;
+}
+
+.admin-h1{
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  margin: 4px 0 10px;
+}
+.admin-h2{
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--gold-soft);
+}
+
+.admin-topbar{
+  width:100%; max-width:640px;
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.admin-help{
+  font-size: 13.5px;
+  line-height:1.6;
+  color: rgba(251,241,224,0.75);
+  max-width: 640px;
+  width:100%;
+  margin: 0 0 18px;
+}
+.admin-help code{
+  background: rgba(251,241,224,0.12);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size:12.5px;
+}
+
+.admin-label{
+  display:block;
+  font-size: 13px;
+  font-weight:600;
+  color: var(--gold-soft);
+  margin: 14px 0 6px;
+}
+
+.admin-input{
+  width:100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid rgba(251,241,224,0.2);
+  background: rgba(251,241,224,0.06);
+  color: var(--cream);
+}
+.admin-input:focus{ outline:none; border-color: var(--gold); }
+.admin-textarea{ resize: vertical; font-family: var(--font-body); }
+
+.admin-grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 480px){
+  .admin-grid-2{ grid-template-columns: 1fr; }
+}
+
+.admin-row{
+  display:flex; flex-wrap:wrap; align-items:center; gap: 10px;
+  margin-top: 6px;
+}
+.admin-row .admin-input{ flex:1; min-width: 160px; }
+
+.admin-toggle-row{
+  display:flex; align-items:center; gap:10px;
+  margin-top: 16px;
+}
+.admin-toggle-row input[type="checkbox"]{ width:18px; height:18px; }
+.admin-toggle-row .admin-label{ margin:0; }
+
+.admin-small-btn{
+  font-size: 14px;
+  padding: 11px 20px;
+  margin-top: 16px;
+  margin-right: 10px;
+}
+
+.admin-danger{ border-color: rgba(229,72,126,0.5); color: var(--rani); }
+.admin-danger:hover{ border-color: var(--rani); }
+
+.admin-confirm{
+  font-size: 13px;
+  font-weight:600;
+  color: var(--gold);
+  margin-left: 6px;
+}
+
+.admin-error{
+  font-size: 13px;
+  color: var(--rani);
+  margin: -6px 0 12px;
+}
+
+/* ---------- questions editor ---------- */
+.question-block{
+  border: 1px solid rgba(251,241,224,0.15);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+  background: rgba(251,241,224,0.03);
+}
+.question-block-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 10px;
+}
+.question-block-head .admin-label{ margin:0; }
+
+.option-row{
+  display:flex; align-items:center; gap: 8px;
+  margin-bottom: 8px;
+}
+.option-row .admin-input{ flex:1; }
+
+.option-row .remove-btn,
+.question-block-head .remove-btn{
+  background: transparent;
+  border: 1.5px solid rgba(229,72,126,0.4);
+  color: var(--rani);
+  border-radius: 8px;
+  width: 30px; height: 30px;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.option-row .remove-btn:hover,
+.question-block-head .remove-btn:hover{ border-color: var(--rani); }
+
+.add-option-btn{
+  font-size: 13px;
+  background: transparent;
+  border: 1.5px dashed rgba(251,241,224,0.3);
+  color: var(--cream);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor:pointer;
+  margin-top: 4px;
+}
+.add-option-btn:hover{ border-color: var(--gold); }
+
+.reactions-note{
+  font-size: 12px;
+  color: rgba(251,241,224,0.5);
+  margin: 10px 0 4px;
+}

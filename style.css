@@ -1,0 +1,404 @@
+/* ==========================================================
+   TOKENS
+   ========================================================== */
+:root{
+  --bg-deep:   #250f1c;
+  --bg-deep-2: #3a1327;
+  --gold:      #eab04d;
+  --gold-soft: #f4d29b;
+  --rani:      #e5487e;
+  --teal:      #1f6f63;
+  --cream:     #fbf1e0;
+  --ink:       #2a1420;
+
+  --font-display: 'Baloo 2', system-ui, sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --shadow-soft: 0 20px 45px rgba(0,0,0,0.35);
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0; padding:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(229,72,126,0.25), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(234,176,77,0.18), transparent 50%),
+    linear-gradient(160deg, var(--bg-deep), var(--bg-deep-2));
+  color: var(--cream);
+  font-family: var(--font-body);
+  overflow-x:hidden;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ambient glow + petals canvas, purely decorative, sit behind everything */
+.bg-glow{
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background: radial-gradient(circle at 50% 0%, rgba(234,176,77,0.10), transparent 60%);
+}
+#petals{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+/* slow-moving festive gradient wash — the "live wallpaper" effect */
+.bg-shimmer{
+  position:fixed; inset:-10%; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(229,72,126,0.16), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(234,176,77,0.14), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(31,111,99,0.12), transparent 50%);
+  background-size: 180% 180%;
+  animation: shimmer-drift 22s ease-in-out infinite alternate;
+}
+@keyframes shimmer-drift{
+  from{ background-position: 0% 0%, 100% 0%, 50% 100%; }
+  to{ background-position: 20% 30%, 80% 40%, 40% 80%; }
+}
+
+/* floating rakhi / diya / thread glyphs drifting upward, everywhere */
+.festive-icons{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.festive-icon{
+  position:absolute;
+  bottom: -10%;
+  font-size: var(--size, 20px);
+  opacity: 0.5;
+  animation-name: festive-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 6px rgba(234,176,77,0.25));
+}
+@keyframes festive-rise{
+  0%{ transform: translate(0, 10vh) rotate(0deg); opacity:0; }
+  10%{ opacity:0.55; }
+  90%{ opacity:0.5; }
+  100%{ transform: translate(var(--drift, 0px), -120vh) rotate(25deg); opacity:0; }
+}
+
+main{
+  position:relative; z-index:1;
+  min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  padding: 32px 20px 60px;
+}
+
+/* ==========================================================
+   SCREENS
+   ========================================================== */
+.screen{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  max-width: 520px;
+  width:100%;
+  animation: rise 0.6s ease both;
+}
+.screen.active{ display:flex; }
+
+@keyframes rise{
+  from{ opacity:0; transform: translateY(18px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+.eyebrow{
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  font-weight:600;
+  margin-bottom: 14px;
+}
+
+h1{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 8vw, 48px);
+  margin: 0 0 14px;
+  line-height:1.1;
+}
+.highlight{ color: var(--gold); }
+
+.sub{
+  font-size: 16px;
+  line-height:1.6;
+  color: rgba(251,241,224,0.85);
+  max-width: 420px;
+  margin: 0 0 28px;
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+.btn{
+  font-family: var(--font-body);
+  font-weight:600;
+  font-size: 16px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  border:none;
+  cursor:pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active{ transform: scale(0.97); }
+
+.btn-primary{
+  background: linear-gradient(135deg, var(--gold), #d98a3d);
+  color: var(--ink);
+  box-shadow: 0 10px 26px rgba(234,176,77,0.35);
+}
+.btn-primary:hover{ box-shadow: 0 14px 32px rgba(234,176,77,0.5); }
+
+.btn-ghost{
+  background: transparent;
+  color: var(--cream);
+  border: 1.5px solid rgba(251,241,224,0.35);
+  margin-top: 18px;
+}
+.btn-ghost:hover{ border-color: var(--cream); }
+
+.btn-outline{
+  display:inline-block;
+  background: transparent;
+  color: var(--gold-soft);
+  border: 1.5px solid var(--teal);
+  text-decoration:none;
+}
+.btn-outline:hover{ background: rgba(31,111,99,0.18); }
+
+.btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+/* ==========================================================
+   WELCOME / BEST WISHES SCREEN
+   ========================================================== */
+.wishes-badge{
+  font-size: 40px;
+  margin-bottom: 6px;
+  animation: badge-sway 3.2s ease-in-out infinite;
+}
+@keyframes badge-sway{
+  0%, 100%{ transform: rotate(-8deg); }
+  50%{ transform: rotate(8deg); }
+}
+
+.disclaimer-card{
+  text-align:left;
+  width:100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-lg);
+  padding: 22px 22px 22px 20px;
+  margin-bottom: 26px;
+  box-shadow: var(--shadow-soft);
+}
+.disclaimer-title{
+  font-family: var(--font-display);
+  font-weight:700;
+  font-size:16px;
+  margin-bottom:12px;
+  color: var(--gold-soft);
+}
+.disclaimer-list{
+  margin:0; padding-left: 20px;
+  display:flex; flex-direction:column; gap:10px;
+  font-size:14.5px; line-height:1.5;
+  color: rgba(251,241,224,0.9);
+}
+.disclaimer-list strong{ color: var(--gold); }
+
+/* ==========================================================
+   QUIZ SCREEN
+   ========================================================== */
+.progress-track{
+  width:100%; max-width:360px;
+  height:8px; border-radius:999px;
+  background: rgba(251,241,224,0.15);
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.progress-fill{
+  height:100%; width:0%;
+  background: linear-gradient(90deg, var(--rani), var(--gold));
+  transition: width 0.4s ease;
+}
+.quiz-counter{
+  font-size:13px; color: rgba(251,241,224,0.6);
+  margin-bottom: 22px;
+  font-weight:500;
+}
+
+.quiz-card{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-lg);
+  padding: 30px 24px;
+  width:100%;
+  box-shadow: var(--shadow-soft);
+}
+
+.q-text{
+  font-family: var(--font-display);
+  font-size: clamp(20px, 5vw, 26px);
+  font-weight:700;
+  margin: 0 0 22px;
+  line-height:1.3;
+}
+
+.q-options{
+  display:flex; flex-direction:column; gap:12px;
+}
+
+.q-option{
+  font-family: var(--font-body);
+  font-size:16px; font-weight:500;
+  text-align:left;
+  padding: 15px 18px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid rgba(251,241,224,0.2);
+  background: rgba(251,241,224,0.04);
+  color: var(--cream);
+  cursor:pointer;
+  transition: all 0.15s ease;
+}
+.q-option:hover{ border-color: var(--gold); background: rgba(234,176,77,0.1); }
+.q-option.chosen{ border-color: var(--rani); background: rgba(229,72,126,0.18); }
+.q-option:disabled{ cursor:default; opacity:0.75; }
+
+.q-feedback{
+  margin-top: 18px;
+  min-height: 20px;
+  font-weight:600;
+  color: var(--gold-soft);
+}
+
+/* ==========================================================
+   SHAGUN CARD GRID  — signature element
+   ========================================================== */
+.card-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width:100%;
+  margin-top: 10px;
+  perspective: 1000px;
+}
+
+.shagun-card{
+  position:relative;
+  aspect-ratio: 3/4;
+  border-radius: var(--radius-md);
+  cursor:pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(.2,.9,.3,1.15);
+}
+.shagun-card.flipped{ transform: rotateY(180deg); pointer-events:none; }
+.shagun-card.dim{ opacity:0.35; pointer-events:none; }
+
+.card-face{
+  position:absolute; inset:0;
+  border-radius: var(--radius-md);
+  backface-visibility:hidden;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: var(--shadow-soft);
+}
+
+/* face-down: envelope motif */
+.card-back{
+  background:
+    repeating-linear-gradient(135deg, rgba(251,241,224,0.06) 0 2px, transparent 2px 14px),
+    linear-gradient(160deg, var(--rani), #8f2352);
+  border: 1.5px solid rgba(251,241,224,0.25);
+}
+.card-back::after{
+  content:"✦";
+  font-size: 28px;
+  color: rgba(251,241,224,0.85);
+}
+
+/* face-up: revealed rupee note */
+.card-front{
+  background: linear-gradient(160deg, var(--gold), #c97f2f);
+  transform: rotateY(180deg);
+  flex-direction:column;
+  color: var(--ink);
+  font-family: var(--font-display);
+}
+.card-front .amt{ font-size: clamp(20px,6vw,26px); font-weight:800; }
+.card-front .lbl{ font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+
+/* ==========================================================
+   REVEAL SCREEN
+   ========================================================== */
+.reveal-note{
+  position:relative;
+  width: 240px; max-width:70vw;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #c07f34 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  color: var(--ink);
+  box-shadow: 0 0 0 8px rgba(234,176,77,0.15), var(--shadow-soft);
+  margin-bottom: 24px;
+  animation: pop 0.55s cubic-bezier(.2,.9,.3,1.4) both;
+  overflow:hidden;
+}
+@keyframes pop{ from{ transform:scale(0.4); opacity:0; } to{ transform:scale(1); opacity:1; } }
+
+.reveal-shine{
+  position:absolute; inset:-40%;
+  background: conic-gradient(from 0deg, transparent 0 80%, rgba(255,255,255,0.5) 90%, transparent 100%);
+  animation: spin 3.5s linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+.reveal-amount{
+  font-family: var(--font-display);
+  font-size: 44px; font-weight:800;
+  position:relative; z-index:1;
+}
+.reveal-caption{
+  font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+  position:relative; z-index:1;
+}
+
+.btn-upi{ font-size:17px; padding:18px 34px; }
+.upi-hint{
+  font-size: 12.5px;
+  color: rgba(251,241,224,0.55);
+  margin-top: 10px;
+}
+
+/* ==========================================================
+   NGO / DONATE-INSTEAD BLOCK
+   ========================================================== */
+.ngo-block{
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px dashed rgba(251,241,224,0.2);
+  width:100%;
+  max-width: 420px;
+  display:flex; flex-direction:column; align-items:center;
+}
+.ngo-message{
+  font-size: 14px;
+  line-height:1.55;
+  color: rgba(251,241,224,0.8);
+  margin: 0 0 14px;
+}
+
+/* fallback notify button on the card-pick screen, hidden by default */
+.notify-fallback{ font-size:14px; }
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+@media (max-width: 380px){
+  .card-grid{ gap: 10px; }
+  .quiz-card{ padding: 24px 18px; }
+}
